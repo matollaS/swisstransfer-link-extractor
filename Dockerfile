@@ -1,23 +1,16 @@
-# Use lightweight Node.js 20 Alpine base image
-FROM node:20-alpine AS base
+FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy dependency definition files
 COPY package*.json ./
 
-# Install production dependencies
-RUN npm ci --only=production
+RUN npm install --omit=dev
 
-# Copy application source code
 COPY . .
 
-# Expose server port 8080
 EXPOSE 8080
 
-# Define environment variables
 ENV PORT=8080 \
     NODE_ENV=production
 
-# Command to run the Express application
-CMD ["npm", "start"]
+CMD ["node", "server.mjs"]
