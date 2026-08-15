@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const filesList = document.getElementById('filesList');
   const copyAllBtn = document.getElementById('copyAllBtn');
+  const downloadZipBtn = document.getElementById('downloadZipBtn');
 
   const toggleJsonBtn = document.getElementById('toggleJsonBtn');
   const jsonContainer = document.getElementById('jsonContainer');
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       currentResultData = json.data;
-      renderResults(json.data);
+      renderResults(json.data, shareUrl, password);
     } catch (err) {
       showError(err.message);
       resultsSection.classList.add('hidden');
@@ -55,11 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function renderResults(data) {
+  function renderResults(data, shareUrl, password) {
     transferIdBadge.textContent = `ID: ${data.transferId}`;
     metaTotalSize.textContent = formatBytes(data.totalSize);
     metaFileCount.textContent = `${data.files.length} file${data.files.length > 1 ? 's' : ''}`;
     metaSender.textContent = data.sender || 'Anonymous';
+
+    // Set single ZIP download link
+    const zipUrl = `/api/download-zip?url=${encodeURIComponent(shareUrl)}${password ? '&password=' + encodeURIComponent(password) : ''}`;
+    downloadZipBtn.href = zipUrl;
 
     filesList.innerHTML = '';
 
