@@ -1,0 +1,19 @@
+{
+  "name": "swisstransfer-link-extractor",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Extract direct S3 download links from SwissTransfer share links with a modern web UI and API",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}
